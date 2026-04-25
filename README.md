@@ -1,8 +1,8 @@
-# MaktabTop — Qarshi xususiy maktablari katalogi
+# MaktabTop — Toshkent xususiy maktablari katalogi
 
 **maktabtop.uz** sayti asosida yaratilgan to'liq full-stack klon loyihasi.
 Backend **Django + DRF**, frontend **React + Vite + Tailwind CSS** da yozilgan.
-Ma'lumotlar bazasi Qarshidagi **25 ta real xususiy maktab** va **137 ta sharh** bilan to'ldirilgan.
+Ma'lumotlar bazasi Toshkentdagi **25 ta real xususiy maktab** va **137 ta sharh** bilan to'ldirilgan.
 
 ---
 
@@ -107,10 +107,10 @@ npm run preview     # build'ni lokalda tekshirish
 
 ## 🏫 Ma'lumotlar bazasi
 
-Seed skript quyidagi real Qarshi maktablarini to'ldiradi:
+Seed skript quyidagi real Toshkent maktablarini to'ldiradi:
 
-British School of Qarshi • Qarshi International School • Invento Qarshi •
-Profi School Qarshi • Wunderkind Study Qarshi • Oxbridge International • Maple Bear •
+British School of Tashkent • Tashkent International School • Invento •
+Profi School • Wunderkind Study • Oxbridge International • Maple Bear •
 ABIS • Horizon Academy • Global Elite School • Dream School • Registan •
 Thompson • Smart School • Rahimov • OST • PDP School • Wisdom • Wise •
 Humo • Ecole Francaise • Disney City • Genesis Education • Anis Premium •

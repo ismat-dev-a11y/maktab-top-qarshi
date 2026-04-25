@@ -45,7 +45,7 @@ class ReviewInline(admin.TabularInline):
 class SchoolAdmin(admin.ModelAdmin):
     list_display = (
         'name', 'district', 'school_type',
-        'rating', 'monthly_price_uzs', 'is_featured', 'is_active',
+        'rating', 'monthly_price_uzs', 'is_featured', 'is_active', 'instagram', 'telegram'
     )
     list_filter = ('school_type', 'district', 'is_featured', 'is_active')
     search_fields = ('name', 'address', 'description')
@@ -61,7 +61,7 @@ class SchoolAdmin(admin.ModelAdmin):
             )
         }),
         ('Aloqa', {
-            'fields': ('phone', 'phone2', 'email', 'website'),
+            'fields': ('phone', 'phone2', 'email', 'website', 'instagram', 'telegram'),
         }),
         ('Manzil', {
             'fields': ('district', 'address', 'latitude', 'longitude'),

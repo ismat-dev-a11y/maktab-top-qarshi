@@ -4,7 +4,7 @@ from django.core.validators import MinValueValidator, MaxValueValidator
 
 
 class District(models.Model):
-    """Qarshi tumanlari"""
+    """Toshkent tumanlari"""
     name = models.CharField('Nomi', max_length=100, unique=True)
     slug = models.SlugField('Slug', max_length=120, unique=True, blank=True)
 
@@ -79,6 +79,8 @@ class School(models.Model):
     slug = models.SlugField('Slug', max_length=220, unique=True, blank=True)
     short_description = models.CharField('Qisqa tavsif', max_length=300, blank=True)
     description = models.TextField('To\'liq tavsif', blank=True)
+    
+
 
     # Turi
     school_type = models.CharField(
@@ -91,7 +93,8 @@ class School(models.Model):
     phone2 = models.CharField('Qo\'shimcha telefon', max_length=30, blank=True)
     email = models.EmailField('Email', blank=True)
     website = models.URLField('Veb-sayt', blank=True)
-
+    telegram = models.CharField('Telegram', max_length=100, blank=True)
+    instagram = models.CharField('Instagram', max_length=100, blank=True)
     # Manzil
     district = models.ForeignKey(
         District, on_delete=models.SET_NULL,

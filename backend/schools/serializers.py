@@ -56,7 +56,7 @@ class SchoolListSerializer(serializers.ModelSerializer):
     class Meta:
         model = School
         fields = (
-            'id', 'name', 'slug', 'short_description', 'school_type',
+            'id', 'name', 'slug', 'short_description', 'school_type', 'instagram', 'telegram',
             'district', 'district_slug', 'address',
             'monthly_price_uzs', 'min_grade', 'max_grade',
             'rating', 'reviews_count',
@@ -83,6 +83,7 @@ class SchoolDetailSerializer(serializers.ModelSerializer):
         model = School
         fields = (
             'id', 'name', 'slug',
+            'instagram', 'telegram',
             'short_description', 'description',
             'school_type', 'school_type_display',
             'phone', 'phone2', 'email', 'website',

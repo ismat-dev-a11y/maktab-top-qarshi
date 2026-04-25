@@ -326,8 +326,8 @@ SCHOOLS = [
             "basketbol, xoreografiya, shaxmat, arab tili to'garaklari. "
             "Oilaviy chegirmalar: 2-bola uchun 5%. Yillik to'lov: 1 mln so'm chegirma."
         ),
-        'district': 'Chilonzor',
-        'address': 'Chilonzor',
+        'district': 'Qashqadaryo',
+        'address': 'Qarshi',
         'phone': '+998 95 772 9999',
         'min_grade': 0, 'max_grade': 11,
         'start_time': time(8, 0), 'end_time': time(18, 0),
