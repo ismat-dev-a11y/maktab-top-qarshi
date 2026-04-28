@@ -20,6 +20,7 @@ INSTALLED_APPS = [
     'rest_framework',
     'corsheaders',
     'django_filters',
+    'drf_spectacular',
     # local
     'schools',
 ]
@@ -90,6 +91,7 @@ REST_FRAMEWORK = {
     ],
     'DEFAULT_PAGINATION_CLASS': 'rest_framework.pagination.PageNumberPagination',
     'PAGE_SIZE': 12,
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
 }
 
 # --- CORS ---
@@ -99,3 +101,18 @@ CORS_ALLOWED_ORIGINS = [
     'http://127.0.0.1:5173',
     'http://localhost:3000',
 ]
+# ===========================================================
+# DRF SPECTACULAR (Swagger)
+# ===========================================================
+SPECTACULAR_SETTINGS = {
+    "TITLE": "MaktabTop API",
+    "DESCRIPTION": "MaktabTop application API",
+    "VERSION": "1.0.0",
+    "SERVE_INCLUDE_SCHEMA": False,
+    "COMPONENT_SPLIT_REQUEST": True,
+    "ENUM_NAME_OVERRIDES": {
+        "TravelStatusEnum": "apps.travel.models.TravelStatus",
+        "AIPlanStatusEnum": "apps.ai_plans.models.AIPlanStatus",
+        "LocationTypeEnum": "apps.location.models.LocationType",
+    },
+}
