@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { fetchDistricts } from '../api/client';
+import { Search, SlidersHorizontal } from 'lucide-react';
 
 const SCHOOL_TYPES = [
   { value: '', label: 'Barcha turlar' },
@@ -19,9 +20,9 @@ export default function Filter({ value, onChange }) {
   const update = (patch) => onChange({ ...value, ...patch });
 
   return (
-    <aside className="bg-white rounded-2xl p-5 shadow-soft border border-slate-100 space-y-5 sticky top-20">
+    <aside className="glass-panel p-5 space-y-5 sticky top-20">
       <div className="flex items-center justify-between">
-        <h3 className="font-display font-bold text-lg">Filtrlash</h3>
+        <h3 className="font-display font-bold text-lg inline-flex items-center gap-2"><SlidersHorizontal className="h-4 w-4 text-brand-600" /> Filtrlash</h3>
         <button
           onClick={() => onChange({})}
           className="text-xs text-brand-600 hover:underline"
@@ -35,13 +36,16 @@ export default function Filter({ value, onChange }) {
         <label className="block text-xs font-semibold text-slate-600 mb-1.5 uppercase tracking-wide">
           Qidiruv
         </label>
-        <input
-          type="text"
-          value={value.search || ''}
-          onChange={e => update({ search: e.target.value })}
-          placeholder="Maktab nomi..."
-          className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none transition"
-        />
+        <div className="relative">
+          <Search className="pointer-events-none absolute left-3 top-1/2 h-4 w-4 -translate-y-1/2 text-slate-400" />
+          <input
+            type="text"
+            value={value.search || ''}
+            onChange={e => update({ search: e.target.value })}
+            placeholder="Maktab nomi..."
+            className="field pl-9"
+          />
+        </div>
       </div>
 
       {/* Type */}
@@ -51,7 +55,7 @@ export default function Filter({ value, onChange }) {
         </label>
         <div className="space-y-1.5">
           {SCHOOL_TYPES.map(t => (
-            <label key={t.value} className="flex items-center gap-2 cursor-pointer hover:bg-slate-50 px-2 py-1 rounded">
+            <label key={t.value} className="flex items-center gap-2 cursor-pointer hover:bg-white px-2 py-1 rounded-lg transition">
               <input
                 type="radio"
                 name="school_type"
@@ -73,7 +77,7 @@ export default function Filter({ value, onChange }) {
         <select
           value={value.district || ''}
           onChange={e => update({ district: e.target.value || undefined })}
-          className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-brand-400 focus:ring-2 focus:ring-brand-100 outline-none"
+          className="field"
         >
           <option value="">Barcha tumanlar</option>
           {districts.map(d => (
@@ -95,14 +99,14 @@ export default function Filter({ value, onChange }) {
             value={value.min_price || ''}
             onChange={e => update({ min_price: e.target.value || undefined })}
             placeholder="Min"
-            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-brand-400 outline-none text-sm"
+            className="field"
           />
           <input
             type="number"
             value={value.max_price || ''}
             onChange={e => update({ max_price: e.target.value || undefined })}
             placeholder="Max"
-            className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-brand-400 outline-none text-sm"
+            className="field"
           />
         </div>
       </div>
@@ -123,7 +127,7 @@ export default function Filter({ value, onChange }) {
                   : 'border-slate-200 hover:border-slate-300'
               }`}
             >
-              {r === 0 ? 'Har qanday' : `${r}⭐+`}
+              {r === 0 ? 'Har qanday' : `${r}+ reyting`}
             </button>
           ))}
         </div>
@@ -137,7 +141,7 @@ export default function Filter({ value, onChange }) {
         <select
           value={value.grade || ''}
           onChange={e => update({ grade: e.target.value || undefined })}
-          className="w-full px-3 py-2 rounded-lg border border-slate-200 outline-none focus:border-brand-400"
+          className="field"
         >
           <option value="">Har qanday sinf</option>
           {Array.from({length: 12}, (_, i) => i).map(g => (

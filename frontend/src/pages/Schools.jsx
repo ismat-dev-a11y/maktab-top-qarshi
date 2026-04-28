@@ -3,6 +3,7 @@ import { useSearchParams } from 'react-router-dom';
 import { fetchSchools } from '../api/client';
 import SchoolCard from '../components/SchoolCard';
 import Filter from '../components/Filter';
+import { ArrowLeft, ArrowRight, SearchX, SlidersHorizontal } from 'lucide-react';
 
 export default function Schools() {
   const [searchParams, setSearchParams] = useSearchParams();
@@ -33,9 +34,9 @@ export default function Schools() {
   const totalPages = Math.ceil(data.count / 12);
 
   return (
-    <div className="container-x py-8 animate-fade-in">
+    <div className="container-x py-10 animate-fade-in">
       <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-display font-extrabold mb-2">
+        <h1 className="section-title mb-2">
           Xususiy maktablar
         </h1>
         <p className="text-slate-600">
@@ -52,32 +53,35 @@ export default function Schools() {
         {/* Results */}
         <div>
           {/* Toolbar */}
-          <div className="bg-white rounded-xl p-3 flex items-center justify-between mb-4 border border-slate-100">
+          <div className="glass-panel p-3 flex items-center justify-between mb-4">
             <span className="text-sm text-slate-600 px-2">
               Natijalar: <span className="font-semibold text-slate-900">{data.count}</span>
             </span>
-            <select
-              value={ordering}
-              onChange={e => setOrdering(e.target.value)}
-              className="text-sm px-3 py-1.5 rounded-lg border border-slate-200 outline-none focus:border-brand-400"
-            >
-              <option value="-rating">Reytingi bo'yicha ↓</option>
-              <option value="monthly_price_uzs">Narx ↑</option>
-              <option value="-monthly_price_uzs">Narx ↓</option>
-              <option value="-reviews_count">Ko'p sharhlar</option>
-              <option value="name">A-Z</option>
-            </select>
+            <div className="flex items-center gap-2">
+              <SlidersHorizontal className="h-4 w-4 text-slate-500" />
+              <select
+                value={ordering}
+                onChange={e => setOrdering(e.target.value)}
+                className="field !h-9 !w-auto !py-0"
+              >
+                <option value="-rating">Reytingi bo'yicha ↓</option>
+                <option value="monthly_price_uzs">Narx ↑</option>
+                <option value="-monthly_price_uzs">Narx ↓</option>
+                <option value="-reviews_count">Ko'p sharhlar</option>
+                <option value="name">A-Z</option>
+              </select>
+            </div>
           </div>
 
           {loading ? (
             <div className="grid sm:grid-cols-2 xl:grid-cols-3 gap-5">
               {Array.from({length: 6}).map((_, i) => (
-                <div key={i} className="bg-white rounded-2xl h-80 animate-pulse border border-slate-100"/>
+                <div key={i} className="card h-80 animate-pulse"/>
               ))}
             </div>
           ) : data.results.length === 0 ? (
-            <div className="bg-white rounded-2xl p-12 text-center border border-slate-100">
-              <div className="text-6xl mb-4">🔍</div>
+            <div className="card p-12 text-center">
+              <div className="mb-4 flex justify-center"><SearchX className="h-12 w-12 text-slate-400" /></div>
               <h3 className="font-display font-bold text-xl mb-2">Hech narsa topilmadi</h3>
               <p className="text-slate-600 mb-4">Filtrlarni o'zgartirib qayta urinib ko'ring.</p>
               <button
@@ -101,7 +105,7 @@ export default function Schools() {
                     disabled={page === 1}
                     className="btn btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
                   >
-                    ← Oldingi
+                    <ArrowLeft className="mr-1 h-4 w-4" /> Oldingi
                   </button>
                   <span className="px-4 py-2 text-sm font-medium">
                     {page} / {totalPages}
@@ -111,7 +115,7 @@ export default function Schools() {
                     disabled={page >= totalPages}
                     className="btn btn-ghost disabled:opacity-40 disabled:cursor-not-allowed"
                   >
-                    Keyingi →
+                    Keyingi <ArrowRight className="ml-1 h-4 w-4" />
                   </button>
                 </div>
               )}

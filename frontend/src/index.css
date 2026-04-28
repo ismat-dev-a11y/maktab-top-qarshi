@@ -15,16 +15,28 @@
     @apply max-w-7xl mx-auto px-4 sm:px-6 lg:px-8;
   }
   .btn {
-    @apply inline-flex items-center justify-center px-5 py-2.5 rounded-xl font-medium transition-all duration-200;
+    @apply inline-flex h-11 items-center justify-center px-5 rounded-xl text-sm font-semibold transition-all duration-200;
   }
   .btn-primary {
-    @apply bg-brand-600 text-white hover:bg-brand-700 shadow-md hover:shadow-lg active:scale-95;
+    @apply bg-brand-600 text-white shadow-soft hover:bg-brand-700 hover:shadow-card active:scale-95;
   }
   .btn-ghost {
-    @apply bg-white text-slate-700 border border-slate-200 hover:border-brand-400 hover:text-brand-600;
+    @apply bg-white text-slate-700 border border-slate-200 hover:border-brand-300 hover:text-brand-600;
+  }
+  .card {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-soft;
+  }
+  .glass-panel {
+    @apply rounded-2xl border border-slate-200 bg-white shadow-soft;
+  }
+  .section-title {
+    @apply text-3xl md:text-4xl font-display font-extrabold text-slate-900;
+  }
+  .field {
+    @apply h-11 w-full rounded-xl border border-slate-200 bg-white px-3 text-sm outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-100;
   }
   .badge {
-    @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium;
+    @apply inline-flex items-center px-2.5 py-1 rounded-full text-xs font-semibold;
   }
 }
 

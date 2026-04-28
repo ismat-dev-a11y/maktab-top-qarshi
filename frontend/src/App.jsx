@@ -9,15 +9,16 @@ import Contact from './pages/Contact'
 
 export default function App() {
   return (
-    <div className="flex min-h-screen flex-col bg-slate-50">
+    <div className="relative flex min-h-screen flex-col overflow-hidden bg-slate-50">
+      <div className="pointer-events-none absolute -top-36 left-1/2 h-[480px] w-[780px] -translate-x-1/2 rounded-full bg-brand-200/30 blur-3xl" />
       <Navbar />
-      <main className="flex-1">
+      <main className="relative z-10 flex-1">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/maktablar" element={<Schools />} />
-          <Route path="/maktablar/:slug" element={<SchoolDetail />} />
-          <Route path="/haqida" element={<About />} />
-          <Route path="/kontakt" element={<Contact />} />
+          <Route path="/schools" element={<Schools />} />
+          <Route path="/schools/:slug" element={<SchoolDetail />} />
+          <Route path="/about" element={<About />} />
+          <Route path="/contact" element={<Contact />} />
           <Route
             path="*"
             element={

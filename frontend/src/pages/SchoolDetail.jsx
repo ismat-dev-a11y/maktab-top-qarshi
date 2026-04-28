@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { fetchSchool, postReview, formatPrice, gradeRange } from '../api/client';
+import { BadgeCheck, Clock3, Globe, Mail, MapPin, Phone, Send, Star, Wallet } from 'lucide-react';
 
 const TYPE_LABELS = {
   private: 'Xususiy',
@@ -33,9 +34,9 @@ export default function SchoolDetail() {
   if (!school) {
     return (
       <div className="container-x py-20 text-center">
-        <div className="text-6xl mb-4">😕</div>
+        <div className="mb-4 flex justify-center"><MapPin className="h-12 w-12 text-slate-400" /></div>
         <h2 className="text-2xl font-display font-bold mb-2">Maktab topilmadi</h2>
-        <Link to="/maktablar" className="btn btn-primary mt-4">Barcha maktablar</Link>
+        <Link to="/schools" className="btn btn-primary mt-4">Barcha maktablar</Link>
       </div>
     );
   }
@@ -43,15 +44,15 @@ export default function SchoolDetail() {
   return (
     <div className="animate-fade-in">
       {/* Hero cover */}
-      <div className="relative h-64 md:h-80 bg-gradient-to-br from-brand-600 to-brand-900 overflow-hidden">
+      <div className="relative h-64 md:h-80 bg-brand-700 overflow-hidden">
         {school.cover_image && (
           <img src={school.cover_image} alt={school.name} className="absolute inset-0 w-full h-full object-cover opacity-40"/>
         )}
-        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 to-transparent"/>
+        <div className="absolute inset-0 bg-slate-900/45"/>
       </div>
 
       <div className="container-x -mt-32 relative pb-16">
-        <div className="bg-white rounded-3xl shadow-card overflow-hidden">
+        <div className="card rounded-3xl shadow-card overflow-hidden">
           {/* Header */}
           <div className="p-6 md:p-8 border-b border-slate-100">
             <div className="flex flex-wrap items-start justify-between gap-4 mb-4">
@@ -61,10 +62,10 @@ export default function SchoolDetail() {
                     {TYPE_LABELS[school.school_type]}
                   </span>
                   {school.is_verified && (
-                    <span className="badge bg-emerald-100 text-emerald-700">✓ Tasdiqlangan</span>
+                    <span className="badge bg-emerald-100 text-emerald-700"><BadgeCheck className="mr-1 h-3.5 w-3.5" /> Tasdiqlangan</span>
                   )}
                   {school.is_featured && (
-                    <span className="badge bg-accent-500 text-white">⭐ Top tanlov</span>
+                    <span className="badge bg-accent-500 text-white"><Star className="mr-1 h-3.5 w-3.5" /> Top tanlov</span>
                   )}
                 </div>
                 <h1 className="text-2xl md:text-4xl font-display font-extrabold text-slate-900 mb-2">
@@ -73,8 +74,8 @@ export default function SchoolDetail() {
                 <p className="text-slate-600 text-lg">{school.short_description}</p>
               </div>
 
-              <div className="flex items-center gap-4 bg-gradient-to-br from-amber-50 to-orange-50 px-5 py-3 rounded-2xl border border-amber-200">
-                <div className="text-5xl">⭐</div>
+              <div className="flex items-center gap-4 bg-amber-50 px-5 py-3 rounded-2xl border border-amber-200">
+                <Star className="h-8 w-8 text-amber-500 fill-amber-500" />
                 <div>
                   <div className="font-display font-extrabold text-3xl text-slate-900">
                     {Number(school.rating).toFixed(1)}
@@ -86,16 +87,16 @@ export default function SchoolDetail() {
 
             {/* Quick info */}
             <div className="grid grid-cols-2 md:grid-cols-4 gap-3 mt-6">
-              <InfoBox icon="💰" label="Oylik narx" value={
+              <InfoBox icon={Wallet} label="Oylik narx" value={
                 school.monthly_price_uzs ? formatPrice(school.monthly_price_uzs) : "Kelishilgan"
               }/>
-              <InfoBox icon="🎓" label="Sinflar" value={gradeRange(school.min_grade, school.max_grade)}/>
-              <InfoBox icon="⏰" label="Dars vaqti" value={
+              <InfoBox icon={BadgeCheck} label="Sinflar" value={gradeRange(school.min_grade, school.max_grade)}/>
+              <InfoBox icon={Clock3} label="Dars vaqti" value={
                 school.start_time && school.end_time
                   ? `${school.start_time.slice(0,5)} - ${school.end_time.slice(0,5)}`
                   : '-'
               }/>
-              <InfoBox icon="📍" label="Tuman" value={school.district?.name || '-'}/>
+              <InfoBox icon={MapPin} label="Tuman" value={school.district?.name || '-'}/>
             </div>
           </div>
 
@@ -194,30 +195,26 @@ export default function SchoolDetail() {
                 {/* Contact info rows */}
                 <div className="space-y-3 max-w-xl">
                   {school.phone && (
-                    <ContactRow icon="📞" label="Telefon" value={school.phone}
+                    <ContactRow icon={Phone} label="Telefon" value={school.phone}
                                 href={`tel:${school.phone.replace(/\s/g, '')}`}/>
                   )}
                   {school.phone2 && (
-                    <ContactRow icon="📞" label="Qo'shimcha telefon" value={school.phone2}
+                    <ContactRow icon={Phone} label="Qo'shimcha telefon" value={school.phone2}
                                 href={`tel:${school.phone2.replace(/\s/g, '')}`}/>
                   )}
                   {school.email && (
-                    <ContactRow icon="✉️" label="Email" value={school.email}
+                    <ContactRow icon={Mail} label="Email" value={school.email}
                                 href={`mailto:${school.email}`}/>
                   )}
                   {school.website && (
-                    <ContactRow icon="🌐" label="Veb-sayt" value={school.website}
+                    <ContactRow icon={Globe} label="Veb-sayt" value={school.website}
                                 href={school.website}/>
                   )}
 
                   {/* ── Telegram ── */}
                   {school.telegram && (
                     <ContactRow
-                      icon={
-                        <svg viewBox="0 0 24 24" className="w-6 h-6 fill-[#229ED9]" xmlns="http://www.w3.org/2000/svg">
-                          <path d="M12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12S18.627 0 12 0zm5.894 8.221-1.97 9.28c-.145.658-.537.818-1.084.508l-3-2.21-1.447 1.394c-.16.16-.295.295-.605.295l.213-3.053 5.56-5.023c.242-.213-.054-.333-.373-.12L7.17 13.667l-2.95-.924c-.64-.203-.657-.64.136-.954l11.57-4.461c.537-.194 1.006.131.968.893z"/>
-                        </svg>
-                      }
+                      icon={Send}
                       label="Telegram"
                       value={
                         school.telegram.startsWith('@')
@@ -235,21 +232,7 @@ export default function SchoolDetail() {
                   {/* ── Instagram ── */}
                   {school.instagram && (
                     <ContactRow
-                      icon={
-                        <svg viewBox="0 0 24 24" className="w-6 h-6" xmlns="http://www.w3.org/2000/svg">
-                          <defs>
-                            <linearGradient id="ig-grad" x1="0%" y1="100%" x2="100%" y2="0%">
-                              <stop offset="0%" stopColor="#f09433"/>
-                              <stop offset="25%" stopColor="#e6683c"/>
-                              <stop offset="50%" stopColor="#dc2743"/>
-                              <stop offset="75%" stopColor="#cc2366"/>
-                              <stop offset="100%" stopColor="#bc1888"/>
-                            </linearGradient>
-                            <a href="instagram.com"></a>
-                          </defs>
-                          <path fill="url(#ig-grad)" d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/>
-                        </svg>
-                      }
+                      icon={Globe}
                       label="Instagram"
                       value={
                         school.instagram.startsWith('@')
@@ -265,7 +248,7 @@ export default function SchoolDetail() {
                   )}
 
                   {school.address && (
-                    <ContactRow icon="📍" label="Manzil" value={
+                    <ContactRow icon={MapPin} label="Manzil" value={
                       `${school.district?.name || ''}, ${school.address}`
                     }/>
                   )}
@@ -290,7 +273,7 @@ export default function SchoolDetail() {
           </div>
         </div>
 
-        <Link to="/maktablar" className="inline-flex items-center gap-2 mt-6 text-brand-600 hover:underline">
+        <Link to="/schools" className="inline-flex items-center gap-2 mt-6 text-brand-600 hover:underline">
           ← Barcha maktablarga qaytish
         </Link>
       </div>
@@ -298,11 +281,11 @@ export default function SchoolDetail() {
   );
 }
 
-function InfoBox({ icon, label, value }) {
+function InfoBox({ icon: Icon, label, value }) {
   return (
     <div className="bg-slate-50 rounded-xl p-3 border border-slate-100">
       <div className="flex items-center gap-2 text-xs text-slate-500 mb-1">
-        <span>{icon}</span> {label}
+        <Icon className="h-3.5 w-3.5" /> {label}
       </div>
       <div className="font-semibold text-slate-800 text-sm">{value}</div>
     </div>
@@ -327,12 +310,11 @@ function Section({ title, children }) {
   );
 }
 
-// icon prop endi string emoji yoki JSX SVG bo'lishi mumkin
-function ContactRow({ icon, label, value, href }) {
+function ContactRow({ icon: Icon, label, value, href }) {
   return (
     <div className="flex items-center gap-4 p-4 bg-slate-50 rounded-xl border border-slate-100">
-      <div className="text-2xl flex-shrink-0 flex items-center justify-center w-8">
-        {icon}
+      <div className="flex-shrink-0 flex items-center justify-center w-8 text-brand-600">
+        <Icon className="h-5 w-5" />
       </div>
       <div className="flex-1">
         <div className="text-xs text-slate-500 uppercase tracking-wide">{label}</div>
@@ -366,7 +348,7 @@ function LocationMap({ lat, lng, name, address, district }) {
     <div className="rounded-2xl overflow-hidden border border-slate-200 shadow-sm">
       <div className="flex items-center justify-between px-4 py-3 bg-slate-50 border-b border-slate-100">
         <div className="flex items-center gap-2 text-sm font-medium text-slate-700">
-          <span>📍</span> Maktab joylashuvi
+          <MapPin className="h-4 w-4 text-brand-600" /> Maktab joylashuvi
         </div>
         <a
           href={mapsHref}
@@ -419,7 +401,7 @@ function ReviewSection({ school, onReload }) {
   return (
     <div className="space-y-6">
       {/* Add review */}
-      <form onSubmit={submit} className="bg-slate-50 rounded-2xl p-5 border border-slate-100">
+      <form onSubmit={submit} className="card p-5">
         <h3 className="font-display font-bold text-lg mb-3">Sharh qoldiring</h3>
         <div className="grid md:grid-cols-2 gap-3 mb-3">
           <input
@@ -427,16 +409,16 @@ function ReviewSection({ school, onReload }) {
             value={form.author_name}
             onChange={e => setForm(f => ({...f, author_name: e.target.value}))}
             placeholder="Ismingiz"
-            className="px-3 py-2 rounded-lg border border-slate-200 focus:border-brand-400 outline-none"
+            className="field"
             required
           />
           <select
             value={form.rating}
             onChange={e => setForm(f => ({...f, rating: +e.target.value}))}
-            className="px-3 py-2 rounded-lg border border-slate-200 outline-none focus:border-brand-400"
+            className="field"
           >
             {[5,4,3,2,1].map(r => (
-              <option key={r} value={r}>{'⭐'.repeat(r)} ({r})</option>
+              <option key={r} value={r}>{r} / 5</option>
             ))}
           </select>
         </div>
@@ -444,7 +426,7 @@ function ReviewSection({ school, onReload }) {
           value={form.text}
           onChange={e => setForm(f => ({...f, text: e.target.value}))}
           placeholder="Fikringizni yozing..."
-          className="w-full px-3 py-2 rounded-lg border border-slate-200 focus:border-brand-400 outline-none mb-3 min-h-[100px]"
+          className="w-full rounded-xl border border-slate-200 px-3 py-2 text-sm outline-none transition focus:border-brand-400 focus:ring-2 focus:ring-brand-100 mb-3 min-h-[100px]"
           required
         />
         <div className="flex items-center justify-between">
@@ -470,7 +452,7 @@ function ReviewSection({ school, onReload }) {
             <div key={r.id} className="bg-white rounded-xl p-4 border border-slate-100">
               <div className="flex items-center justify-between mb-2">
                 <div className="flex items-center gap-3">
-                  <div className="w-10 h-10 rounded-full bg-gradient-to-br from-brand-400 to-brand-600 flex items-center justify-center text-white font-bold">
+                  <div className="w-10 h-10 rounded-full bg-brand-600 flex items-center justify-center text-white font-bold">
                     {r.author_name[0]}
                   </div>
                   <div>
@@ -480,7 +462,10 @@ function ReviewSection({ school, onReload }) {
                     </div>
                   </div>
                 </div>
-                <div className="text-amber-500">{'⭐'.repeat(r.rating)}</div>
+                <div className="inline-flex items-center gap-1 text-amber-500">
+                  <Star className="h-4 w-4 fill-amber-500" />
+                  <span className="text-sm font-semibold">{r.rating}</span>
+                </div>
               </div>
               <p className="text-slate-700 leading-relaxed">{r.text}</p>
             </div>
